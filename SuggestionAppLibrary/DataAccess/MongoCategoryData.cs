@@ -7,7 +7,7 @@ namespace SuggestionAppLibrary.DataAccess
     {
         private readonly IMongoCollection<CategoryModel> _categories;
         private readonly IMemoryCache _cache;
-        private const string cacheName = "CategoryData";
+        private const string CacheName = "CategoryData";
 
         public MongoCategoryData(IDbConnection db, IMemoryCache cache)
         {
@@ -17,7 +17,7 @@ namespace SuggestionAppLibrary.DataAccess
 
         public async Task<List<CategoryModel>> GetAllCategories()
         {
-            var output = _cache.Get<List<CategoryModel>>(cacheName);
+            var output = _cache.Get<List<CategoryModel>>(CacheName);
 
             if (output != null)
             {
@@ -28,7 +28,7 @@ namespace SuggestionAppLibrary.DataAccess
 
             if (result != null)
             {
-                _cache.Set(cacheName, result, TimeSpan.FromDays(1));
+                _cache.Set(CacheName, result, TimeSpan.FromDays(1));
             }
 
             return result.ToList();
